@@ -35,12 +35,23 @@ Public Class Start
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles InstallAPK.Click
-        Try
-            CMD.RunCommandCom(Application.StartupPath & "/adb/platform-tools/adb.exe", "connect " & IP.Text & " && " & Application.StartupPath & "/adb/platform-tools/adb.exe" & " install " & ApkPath.Text, False)
-            'MsgBox("Apk installed :)", MsgBoxStyle.Information)
-        Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical)
-        End Try
+        If CheckBox1.Checked = True Then
+            Try
+                CMD.RunCommandCom(Application.StartupPath & "/adb/platform-tools/adb.exe", "connect " & IP.Text & " && " & Application.StartupPath & "/adb/platform-tools/adb.exe" & " install " & ApkPath.Text, False)
+                'MsgBox("Apk installed :)", MsgBoxStyle.Information)
+            Catch ex As Exception
+                MsgBox(ex.Message, MsgBoxStyle.Critical)
+            End Try
+        Else
+            Try
+                CMD.RunCommandCom(Application.StartupPath & "/adb/platform-tools/adb.exe", "connect 127.0.0.1:58526" & " && " & Application.StartupPath & "/adb/platform-tools/adb.exe" & " install " & ApkPath.Text, False)
+                'MsgBox("Apk installed :)", MsgBoxStyle.Information)
+            Catch ex As Exception
+                MsgBox(ex.Message, MsgBoxStyle.Critical)
+            End Try
+
+        End If
+
     End Sub
 
     Private Sub ApkPath_TextChanged(sender As Object, e As EventArgs) Handles ApkPath.TextChanged
@@ -61,6 +72,14 @@ Public Class Start
     Private Sub Start_DragEnter(sender As Object, e As DragEventArgs) Handles MyBase.DragEnter
         If e.Data.GetDataPresent(DataFormats.FileDrop) Then
             e.Effect = DragDropEffects.Copy
+        End If
+    End Sub
+
+    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged
+        If CheckBox1.Checked = True Then
+            IP.Enabled = True
+        Else
+            IP.Enabled = False
         End If
     End Sub
 End Class

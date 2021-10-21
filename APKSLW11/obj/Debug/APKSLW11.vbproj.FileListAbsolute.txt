@@ -1,0 +1,12 @@
+C:\Users\echol\source\repos\APKSLW11\APKSLW11\bin\Debug\APKSLW11.exe.config
+C:\Users\echol\source\repos\APKSLW11\APKSLW11\bin\Debug\APKSLW11.exe
+C:\Users\echol\source\repos\APKSLW11\APKSLW11\bin\Debug\APKSLW11.pdb
+C:\Users\echol\source\repos\APKSLW11\APKSLW11\bin\Debug\APKSLW11.xml
+C:\Users\echol\source\repos\APKSLW11\APKSLW11\obj\Debug\APKSLW11.vbprojAssemblyReference.cache
+C:\Users\echol\source\repos\APKSLW11\APKSLW11\obj\Debug\APKSLW11.Resources.resources
+C:\Users\echol\source\repos\APKSLW11\APKSLW11\obj\Debug\APKSLW11.vbproj.GenerateResource.cache
+C:\Users\echol\source\repos\APKSLW11\APKSLW11\obj\Debug\APKSLW11.vbproj.CoreCompileInputs.cache
+C:\Users\echol\source\repos\APKSLW11\APKSLW11\obj\Debug\APKSLW11.exe
+C:\Users\echol\source\repos\APKSLW11\APKSLW11\obj\Debug\APKSLW11.xml
+C:\Users\echol\source\repos\APKSLW11\APKSLW11\obj\Debug\APKSLW11.pdb
+C:\Users\echol\source\repos\APKSLW11\APKSLW11\obj\Debug\APKSLW11.Start.resources

@@ -4,7 +4,9 @@ Imports System.Net
 Public Class Start
     Private running As Boolean = False
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles GetADB.Click
+    Sub DADB()
+        InstallAPK.Enabled = False
+        ProgressBar1.Visible = True
         Dim adburl As String = "https://dl.google.com/android/repository/platform-tools-latest-windows.zip"
         Directory.CreateDirectory(Application.StartupPath & "/adb")
 
@@ -12,6 +14,10 @@ Public Class Start
         AddHandler webClient.DownloadProgressChanged, AddressOf client_ProgressChanged
         AddHandler webClient.DownloadFileCompleted, AddressOf client_DownloadFileCompleted
         webClient.DownloadFileAsync(New Uri(adburl), Application.StartupPath & "/adb/adb.zip")
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs)
+
     End Sub
 
     Sub UnZip(outputFolder As String, inputZip As String)
@@ -32,29 +38,41 @@ Public Class Start
         ProgressBar1.Value = 0
         File.Delete(Application.StartupPath & "/adb/adb.zip")
         MsgBox("ADB download and extract :)", MsgBoxStyle.Information, "APKSLW11")
+        InstallAPK.Enabled = True
+        ProgressBar1.Visible = False
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles InstallAPK.Click
-        If CheckBox1.Checked = True Then
+    Sub IAPK()
+        If CP.Checked = True Then
             Try
+                InstallAPK.Enabled = False
                 CMD.RunCommandCom(Application.StartupPath & "/adb/platform-tools/adb.exe", "connect " & IP.Text & " && " & Application.StartupPath & "/adb/platform-tools/adb.exe" & " install " & ApkPath.Text, False)
                 'MsgBox("Apk installed :)", MsgBoxStyle.Information)
+                InstallAPK.Enabled = True
             Catch ex As Exception
                 MsgBox(ex.Message, MsgBoxStyle.Critical)
+                InstallAPK.Enabled = True
             End Try
         Else
             Try
+                InstallAPK.Enabled = False
                 CMD.RunCommandCom(Application.StartupPath & "/adb/platform-tools/adb.exe", "connect 127.0.0.1:58526" & " && " & Application.StartupPath & "/adb/platform-tools/adb.exe" & " install " & ApkPath.Text, False)
                 'MsgBox("Apk installed :)", MsgBoxStyle.Information)
+                InstallAPK.Enabled = True
             Catch ex As Exception
                 MsgBox(ex.Message, MsgBoxStyle.Critical)
+                InstallAPK.Enabled = True
             End Try
 
         End If
-
     End Sub
 
-    Private Sub ApkPath_TextChanged(sender As Object, e As EventArgs) Handles ApkPath.TextChanged
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles InstallAPK.Click
+        If InstallAPK.Text = "Install APK" Then
+            IAPK()
+        ElseIf InstallAPK.Text = "Get ADB" Then
+            DADB()
+        End If
 
     End Sub
 
@@ -75,11 +93,21 @@ Public Class Start
         End If
     End Sub
 
-    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged
-        If CheckBox1.Checked = True Then
+    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles CP.CheckedChanged
+        If CP.Checked = True Then
             IP.Enabled = True
+            IP.Visible = True
         Else
             IP.Enabled = False
+            IP.Visible = False
+        End If
+    End Sub
+
+    Private Sub CADB_Tick(sender As Object, e As EventArgs) Handles CADB.Tick
+        If Directory.Exists(Application.StartupPath & "/adb") Then
+            InstallAPK.Text = "Install APK"
+        Else
+            InstallAPK.Text = "Get ADB"
         End If
     End Sub
 End Class
